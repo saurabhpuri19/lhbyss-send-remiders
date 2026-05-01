@@ -12,7 +12,7 @@ SUPABASE_KEY: str = os.environ["SUPABASE_KEY"]
 
 # ── Gmail credentials ──────────────────────────────────────────────────────────
 GMAIL_USER: str = os.environ["GMAIL_USER"]        # your-email@gmail.com
-GMAIL_PASS: str = os.environ["GMAIL_PASS"]        # App Password (16 chars)
+GMAIL_PASS: str = os.environ["GMAIL_PASS"].replace("\xa0", "").replace(" ", "").strip()       # App Password (16 chars)
 
 TODAY = date.today().isoformat()
 
