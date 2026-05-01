@@ -2,7 +2,7 @@ name: Daily Task Reminder
 
 on:
   schedule:
-    - cron: "*/2 * * * *"
+    - cron: "*/5 * * * *"
   workflow_dispatch:
 
 env:
@@ -38,4 +38,4 @@ jobs:
           SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
           GMAIL_USER:   ${{ secrets.GMAIL_USER }}
           GMAIL_PASS:   ${{ secrets.GMAIL_PASS }}
-        run: python send_reminders.py
+        run: python send_task_reminders.py

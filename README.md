@@ -13,7 +13,7 @@ your-repo/
 ├── requirements.txt               # Python dependencies
 ├── .github/
 │   └── workflows/
-│       └── task_reminder.yml      # GitHub Actions cron schedule
+│       └── send_task_reminder.yml # GitHub Actions cron schedule
 └── README.md
 ```
 
