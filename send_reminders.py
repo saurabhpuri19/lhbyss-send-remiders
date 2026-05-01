@@ -11,10 +11,19 @@ SUPABASE_URL: str = os.environ["SUPABASE_URL"]
 SUPABASE_KEY: str = os.environ["SUPABASE_KEY"]
 
 # ── Gmail credentials ──────────────────────────────────────────────────────────
-GMAIL_USER: str = os.environ["GMAIL_USER"]        # your-email@gmail.com
+GMAIL_USER: str = os.environ["GMAIL_USER"]                                                    # your-email@gmail.com
 GMAIL_PASS: str = os.environ["GMAIL_PASS"].replace("\xa0", "").replace(" ", "").strip()       # App Password (16 chars)
 
 TODAY = date.today().isoformat()
+
+
+def format_due_date(raw: str) -> str:
+    """Convert ISO date string (e.g. 2026-05-01 or 2026-05-01T00:00:00) to DDMMYYYY."""
+    try:
+        d = date.fromisoformat(raw.split("T")[0])
+        return d.strftime("%d%m%Y")
+    except (ValueError, AttributeError):
+        return raw  # fall back to original if parsing fails
 
 
 def get_supabase_client() -> Client:
@@ -46,23 +55,22 @@ def fetch_clients_by_ids(sb: Client, client_ids: list[str]) -> dict[str, str]:
 def build_email(to_address: str, task: dict) -> MIMEMultipart:
     task_id       = task.get("task_id", "N/A")
     task_name     = task.get("task_name", "your assigned task")
-    task_due_date = task.get("task_due_date", "N/A")
+    task_due_date = format_due_date(task.get("task_due_date", "N/A"))
     task_desc     = task.get("task_description", "")
 
     msg = MIMEMultipart("alternative")
-    msg["Subject"] = f"Reminder: Task #{task_id} is due on {task_due_date}"
+    msg["Subject"] = f"Task Reminder (Light House by Sahibaa Singh): Assigned Task is due on {task_due_date}"
     msg["From"]    = GMAIL_USER
     msg["To"]      = to_address
 
     plain = (
         f"Hello,\n\n"
         f"This is a friendly reminder that the following task is due soon:\n\n"
-        f"  Task ID   : {task_id}\n"
-        f"  Task Name : {task_name}\n"
+        f"  Task Assigned : {task_name}\n"
         f"  Due Date  : {task_due_date}\n"
         f"  Details   : {task_desc}\n\n"
         f"Please complete it before the due date.\n\n"
-        f"Regards,\nTask Reminder System"
+        f"Thanks,\nLight House by Sahibaa Singh"
     )
 
     desc_row = (
@@ -74,7 +82,7 @@ def build_email(to_address: str, task: dict) -> MIMEMultipart:
     html = f"""
 <html>
   <body style="font-family:Arial,sans-serif;color:#333;padding:20px;">
-    <h2 style="color:#d9534f;">Task Reminder</h2>
+        <h2 style="color:#d9534f;">Task Reminder</h2>
     <p>Hello,</p>
     <p>This is a friendly reminder that the following task is due soon:</p>
     <table style="border-collapse:collapse;width:100%;max-width:500px;">
@@ -95,8 +103,8 @@ def build_email(to_address: str, task: dict) -> MIMEMultipart:
       {desc_row}
     </table>
     <br>
-    <p>Please complete it before the due date.</p>
-    <p style="color:#999;font-size:12px;">Task Reminder System</p>
+    <p>Please complete it before the due date. Let us know in case of assistance is needed.</p>
+    <p style="color:#999;font-size:12px;">Thanks,\nLight House by Sahibaa Singh</p>
   </body>
 </html>
 """

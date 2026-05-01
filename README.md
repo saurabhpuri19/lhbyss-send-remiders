@@ -55,12 +55,12 @@ git push -u origin main
 
 Go to your repo → **Settings → Secrets and variables → Actions → New repository secret**
 
-| Secret Name      | Value                                           |
-|------------------|-------------------------------------------------|
-| `SUPABASE_URL`   | Your project URL from Supabase → Settings → API |
-| `SUPABASE_KEY`   | `service_role` secret key (NOT the anon key)    |
-| `SENDER_EMAIL`   | `yourname@gmail.com`                            |
-| `RESEND_API_KEY` | From resend.com → API Keys                      |
+| Secret Name    | Value                                                                                                                                 |
+|----------------|---------------------------------------------------------------------------------------------------------------------------------------|
+| `SUPABASE_URL` | Your project URL from `Supabase → Settings → API`.                                                                                    |
+| `SUPABASE_KEY` | `service_role` secret key (Not the anon key)  .                                                                                       |
+| `GMAIL_USER`   | `yourname@gmail.com`.                                                                                                                 |
+| `GMAIL_PASS`   | `Enable 2-Step Verification` ON under `myaccount.google.com/security`, generate `AppPassword` at `myaccount.google.com/apppasswords`. |
 
 
 ### 3 · Adjust the Schedule (optional)
@@ -91,21 +91,3 @@ You should see ✅ Sent to client@email.com in the output
 - The Gmail App Password only grants Mail access, not full account access.
 
 ---
-
-## 💡 How It Works
-
-```
-GitHub Actions (08:00 UTC daily)
-        │
-        ▼
-send_reminders.py
-        │
-        ├─ Query task_tbl WHERE task_due_date >= TODAY
-        │
-        ├─ Split task_client_id  →  ["1", "3", "7"]
-        │
-        ├─ Bulk-fetch client emails from client_tbl
-        │
-        └─ Send HTML reminder email via Gmail SMTP
-                to each client for each due task
-```

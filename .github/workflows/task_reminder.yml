@@ -3,7 +3,7 @@ name: Daily Task Reminder
 on:
   schedule:
     - cron: "*/2 * * * *"
-
+    #- cron: "* 2 * * * *"
   workflow_dispatch:
 
 env:
