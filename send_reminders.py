@@ -53,8 +53,6 @@ def fetch_clients_by_ids(sb: Client, client_ids: list[str]) -> dict[str, str]:
 
 
 def build_email(to_address: str, task: dict) -> MIMEMultipart:
-    task_id       = task.get("task_id", "N/A")
-    task_name     = task.get("task_name", "your assigned task")
     task_due_date = format_due_date(task.get("task_due_date", "N/A"))
     task_desc     = task.get("task_description", "")
 
@@ -66,15 +64,14 @@ def build_email(to_address: str, task: dict) -> MIMEMultipart:
     plain = (
         f"Hello,\n\n"
         f"This is a friendly reminder that the following task is due soon:\n\n"
-        f"  Task Assigned : {task_name}\n"
-        f"  Due Date  : {task_due_date}\n"
-        f"  Details   : {task_desc}\n\n"
+        f"  Task Due Date  : {task_due_date}\n"
+        f"  Task Assigned   : {task_desc}\n\n"
         f"Please complete it before the due date.\n\n"
         f"Thanks,\nLight House by Sahibaa Singh"
     )
 
     desc_row = (
-        f"<tr><td style='padding:8px 12px;border:1px solid #ddd;'><strong>Details</strong></td>"
+        f"<tr><td style='padding:8px 12px;border:1px solid #ddd;'><strong>Task Assigned</strong></td>"
         f"<td style='padding:8px 12px;border:1px solid #ddd;'>{task_desc}</td></tr>"
         if task_desc else ""
     )
@@ -87,15 +84,7 @@ def build_email(to_address: str, task: dict) -> MIMEMultipart:
     <p>This is a friendly reminder that the following task is due soon:</p>
     <table style="border-collapse:collapse;width:100%;max-width:500px;">
       <tr style="background:#f5f5f5;">
-        <td style="padding:8px 12px;border:1px solid #ddd;"><strong>Task ID</strong></td>
-        <td style="padding:8px 12px;border:1px solid #ddd;">{task_id}</td>
-      </tr>
-      <tr>
-        <td style="padding:8px 12px;border:1px solid #ddd;"><strong>Task Name</strong></td>
-        <td style="padding:8px 12px;border:1px solid #ddd;">{task_name}</td>
-      </tr>
-      <tr style="background:#f5f5f5;">
-        <td style="padding:8px 12px;border:1px solid #ddd;"><strong>Due Date</strong></td>
+        <td style="padding:8px 12px;border:1px solid #ddd;"><strong>Task Due Date</strong></td>
         <td style="padding:8px 12px;border:1px solid #ddd;color:#d9534f;">
           <strong>{task_due_date}</strong>
         </td>
