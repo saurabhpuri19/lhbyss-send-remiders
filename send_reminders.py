@@ -21,7 +21,7 @@ def format_due_date(raw: str) -> str:
     """Convert ISO date string (e.g. 2026-05-01 or 2026-05-01T00:00:00) to DDMMYYYY."""
     try:
         d = date.fromisoformat(raw.split("T")[0])
-        return d.strftime("%d%m%Y")
+        return d.strftime("%d-%m-%Y")
     except (ValueError, AttributeError):
         return raw  # fall back to original if parsing fails
 
