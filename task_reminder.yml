@@ -194,7 +194,7 @@
     schedule:
       # Runs every day at 08:00 AM UTC  →  1:30 PM IST
       # Adjust the time: UTC 02:30 = IST 08:00  |  UTC 08:00 = IST 13:30
-      - cron: "0 8 * * *"
+      - cron: "0 4 * * *"
 
     # Allows manual trigger from the Actions tab for testing
     workflow_dispatch:
