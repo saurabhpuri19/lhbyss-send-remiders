@@ -104,7 +104,7 @@ def build_email(to_address: str, task: dict) -> MIMEMultipart:
     </table>
     <br>
     <p>Please complete it before the due date. Let us know in case of assistance is needed.</p>
-    <p style="color:#999;font-size:12px;">Thanks,\nLight House by Sahibaa Singh</p>
+    <p style="color:#999;font-size:12px;">Thanks,<br>Light House by Sahibaa Singh</p>
   </body>
 </html>
 """
