@@ -55,12 +55,12 @@ git push -u origin main
 
 Go to your repo → **Settings → Secrets and variables → Actions → New repository secret**
 
-| Secret Name      | Value                                             |
-|------------------|---------------------------------------------------|
-| `SUPABASE_URL`   | Your project URL from Supabase → Settings → API   |
-| `SUPABASE_KEY`   | `service_role` secret key (NOT the anon key)      |
-| `SENDER_EMAIL`   | `yourname@gmail.com`                              |
-| `RESEND_API_KEY` | From resend.com → API Keys           |
+| Secret Name      | Value                                           |
+|------------------|-------------------------------------------------|
+| `SUPABASE_URL`   | Your project URL from Supabase → Settings → API |
+| `SUPABASE_KEY`   | `service_role` secret key (NOT the anon key)    |
+| `SENDER_EMAIL`   | `yourname@gmail.com`                            |
+| `RESEND_API_KEY` | From resend.com → API Keys              ß       |
 
 
 ### 3 · Adjust the Schedule (optional)
