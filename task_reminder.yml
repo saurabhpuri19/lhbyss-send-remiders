@@ -1,0 +1,49 @@
+name: Daily Task Reminder
+
+on:
+  schedule:
+    # Runs every day at 08:00 AM UTC  →  1:30 PM IST
+    # Adjust the time to suit your timezone:
+    #   UTC 00:00 = IST 05:30   |   UTC 02:30 = IST 08:00   |   UTC 08:00 = IST 13:30
+    - cron: "0 8 * * *"
+
+  # Allows you to trigger the workflow manually from the Actions tab for testing
+  workflow_dispatch:
+
+jobs:
+  send-reminders:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Check out your repository
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # 2. Set up Python
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      # 3. Cache pip packages to speed up subsequent runs
+      - name: Cache pip packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+
+      # 4. Install dependencies
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      # 5. Run the reminder script
+      #    All secrets are injected from GitHub Secrets (never hard-coded)
+      - name: Run task reminder
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
+          GMAIL_USER: ${{ secrets.GMAIL_USER }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+        run: python send_reminders.py
