@@ -1,1 +1,2 @@
 supabase==2.10.0
+resend==2.5.0

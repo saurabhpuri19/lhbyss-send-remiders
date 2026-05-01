@@ -55,23 +55,15 @@ git push -u origin main
 
 Go to your repo → **Settings → Secrets and variables → Actions → New repository secret**
 
-| Secret Name         | Value                                             |
-|---------------------|---------------------------------------------------|
-| `SUPABASE_URL`      | Your project URL from Supabase → Settings → API   |
-| `SUPABASE_KEY`      | `service_role` secret key (NOT the anon key)      |
-| `GMAIL_USER`        | `yourname@gmail.com`                              |
-| `GMAIL_APP_PASSWORD`| 16-char Gmail App Password (see below)            |
+| Secret Name      | Value                                             |
+|------------------|---------------------------------------------------|
+| `SUPABASE_URL`   | Your project URL from Supabase → Settings → API   |
+| `SUPABASE_KEY`   | `service_role` secret key (NOT the anon key)      |
+| `SENDER_EMAIL`   | `yourname@gmail.com`                              |
+| `RESEND_API_KEY` | From resend.com → API Keys           |
 
-### 3 · Create a Gmail App Password
 
-> Required because Google blocks plain password login for scripts.
-
-1. Go to [myaccount.google.com/security](https://myaccount.google.com/security)
-2. Enable **2-Step Verification** if not already on
-3. Search for **"App Passwords"** → Select app: `Mail`, device: `Other` → **Generate**
-4. Copy the 16-character password → paste it as `GMAIL_APP_PASSWORD` in GitHub Secrets
-
-### 4 · Adjust the Schedule (optional)
+### 3 · Adjust the Schedule (optional)
 
 Edit `.github/workflows/task_reminder.yml`:
 ```yaml
@@ -79,10 +71,17 @@ Edit `.github/workflows/task_reminder.yml`:
 ```
 Use [crontab.guru](https://crontab.guru) to build your preferred time.
 
-### 5 · Test it manually
+### 4 · Test it manually
 
 GitHub → **Actions tab** → `Daily Task Reminder` → **Run workflow** → Watch the logs.
 
+Don't wait for the daily schedule — trigger it immediately:
+
+Click the "Actions" tab in your repo
+Click "Daily Task Reminder" on the left
+Click "Run workflow" → "Run workflow" (green button)
+Click the running job to watch the live logs
+You should see ✅ Sent to client@email.com in the output
 ---
 
 ## 🔐 Security Notes
