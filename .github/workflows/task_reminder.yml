@@ -17,9 +17,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4.2.2
 
-      - name: List files (debug)
-        run: ls -la
-
       - name: Set up Python 3.11
         uses: actions/setup-python@v5.6.0
         with:
@@ -38,8 +35,8 @@ jobs:
 
       - name: Run task reminder
         env:
-          SUPABASE_URL:    ${{ secrets.SUPABASE_URL }}
-          SUPABASE_KEY:    ${{ secrets.SUPABASE_KEY }}
-          RESEND_API_KEY:  ${{ secrets.RESEND_API_KEY }}
-          SENDER_EMAIL:    ${{ secrets.SENDER_EMAIL }}
+          SUPABASE_URL:  ${{ secrets.SUPABASE_URL }}
+          SUPABASE_KEY:  ${{ secrets.SUPABASE_KEY }}
+          GMAIL_USER:    ${{ secrets.GMAIL_USER }}
+          GMAIL_PASS:    ${{ secrets.GMAIL_PASS }}
         run: python send_reminders.py
