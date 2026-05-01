@@ -34,7 +34,7 @@ def fetch_pending_tasks(sb: Client) -> list[dict]:
     response = (
         sb.table("task_tbl")
         .select("*")
-        .gte("task_due_date", TODAY)
+        .eq("task_due_date", TODAY)
         .execute()
     )
     return response.data or []
