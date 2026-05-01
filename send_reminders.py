@@ -57,7 +57,7 @@ def build_email(to_address: str, task: dict) -> MIMEMultipart:
     task_desc     = task.get("task_description", "")
 
     msg = MIMEMultipart("alternative")
-    msg["Subject"] = f"Task Reminder (Light House by Sahibaa Singh)|Task Assigned is due on {task_due_date}"
+    msg["Subject"] = f"Task Reminder (Light House by Sahibaa Singh) | Task Assigned is due on {task_due_date}"
     msg["From"]    = GMAIL_USER
     msg["To"]      = to_address
 
