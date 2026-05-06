@@ -67,7 +67,7 @@ Go to your repo → **Settings → Secrets and variables → Actions → New rep
 
 Edit `.github/workflows/task_reminder.yml`:
 ```yaml
-- cron: "0 2 * * *"   # 02:00 UTC = 7:30 IST
+- cron: "0 2 * * *"   # 01:30 UTC = 6:30 IST
 ```
 Use [crontab.guru](https://crontab.guru) to build your preferred time.
 
